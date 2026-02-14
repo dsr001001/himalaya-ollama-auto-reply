@@ -45,4 +45,5 @@ An AI-powered auto-reply bot for emails using [Himalaya](https://github.com/soyw
 - `auto_reply.py`: The main Python script for the bot.
 - `install_ollama.sh`: Script to install Ollama on Linux.
 - `Modelfile`: Ollama model configuration.
+- `himalaya.toml.example`: Example configuration for Himalaya.
 - `check_ollam.txt`: Installation notes/check.

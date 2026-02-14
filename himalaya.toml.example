@@ -1,0 +1,33 @@
+# Himalaya Configuration Example
+
+[accounts.example]
+default = true
+email = "your_email@example.com"
+display-name = "Your Name"
+downloads-dir = "~/Downloads"
+
+[accounts.example.backend]
+type = "imap"
+host = "imap.example.com"
+port = 993
+login = "your_email@example.com"
+
+[accounts.example.backend.encryption]
+type = "tls"
+
+[accounts.example.backend.auth]
+type = "password"
+command = "your_password_command" # e.g., "cat ~/.password-store/email" or a direct password string
+
+[accounts.example.message.send.backend]
+type = "smtp"
+host = "smtp.example.com"
+port = 587
+login = "your_email@example.com"
+
+[accounts.example.message.send.backend.encryption]
+type = "start-tls"
+
+[accounts.example.message.send.backend.auth]
+type = "password"
+command = "your_password_command"

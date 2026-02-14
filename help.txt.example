@@ -1,0 +1,52 @@
+# Himalaya Email Client Cheat Sheet & Troubleshooting
+
+## Key Commands
+
+### Listing Emails
+*   **Command:** `himalaya envelope list`
+*   **Options:**
+    *   `--max-width <INT>`: Set the max width of the table.
+    *   `--debug`: Enable debug logs to trace IMAP/SMTP connections.
+
+### Reading Emails
+*   **Command:** `himalaya message read <ID>`
+*   **Note:** This marks the email as seen. Use `--preview` to keep it unseen.
+
+### Replying to Emails
+1.  **Generate Template:** `himalaya template reply <ID> "Your body text" > reply.eml`
+2.  **Send Reply:** `himalaya message send < reply.eml`
+
+### Sending New Emails (Scripting/Raw)
+1.  **Create EML File:**
+    ```bash
+    cat <<EOF > message.eml
+    From: Your Name <your@email.com>
+    To: recipient@email.com
+    Subject: Your Subject
+    
+    Your message body here.
+    EOF
+    ```
+2.  **Send:** `himalaya message send < message.eml`
+
+### Saving Messages (Append to Folder)
+*   **Command:** `himalaya message save --folder <FOLDER_NAME> < message.eml`
+*   **Example:** `himalaya message save --folder INBOX < sent-message.eml`
+
+## Configuration & Troubleshooting
+
+### Provider Configuration
+*   **IMAP:** `imap.example.com` (Port 993, TLS)
+*   **SMTP:** `smtp.example.com` (Port 587, STARTTLS)
+*   **Auth:** Plain password.
+*   **Issue:** Microsoft Outlook accounts may block Basic Auth, requiring OAuth2 or App Passwords.
+
+### Common Issues
+1.  **"Cannot add IMAP message" / Stream Error after Sending:**
+    *   **Cause:** The default `Sent` folder might not exist on the server, or there is a protocol mismatch when `himalaya` tries to auto-save the sent message.
+    *   **Workaround:** The email usually sends successfully via SMTP despite this error. To save a copy, manually use `himalaya message save --folder INBOX` (or another valid folder) with the sent content.
+
+2.  **Connection Failures:**
+    *   **Action:**
+        *   Use `ping` to verify DNS/Connectivity.
+        *   Use `--debug` flag to see TLS handshake and authentication details.
